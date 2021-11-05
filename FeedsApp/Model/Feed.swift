@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 struct Feed {
     let seller: String
     let sellerDescription: String
     let time: String
+    let status: Bool
+    var logoImages: [String] = []
 }

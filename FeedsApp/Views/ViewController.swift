@@ -33,10 +33,15 @@ class ViewController: UIViewController {
         return tableView
     }()
 
-    var feed = [
-        Feed(seller: "RECOMMENDED SELLER", sellerDescription: "Seller with a very long name that \nneeds two lines to fit", time: "32 minutes ago"),
-        Feed(seller: "RECOMMENDED SELLER", sellerDescription: "Seller short name", time: "20-04-2020"),
-        Feed(seller: "NEW ARRIVALS", sellerDescription: "Jerseygramm and Brandings Store", time: "20-04-2020")
+    var feeds = [
+        Feed(seller: "RECOMMENDED SELLER", sellerDescription: "Seller with a very long name that \nneeds two lines to fit", time: "32 minutes ago", status: false, logoImages: [
+             "firstPhoto", "secondPhoto", "lastPhoto"]),
+        
+        Feed(seller: "RECOMMENDED SELLER", sellerDescription: "Seller short name", time: "20-04-2020", status: false, logoImages: [
+                "firstPhoto", "secondPhoto", "lastPhoto"]),
+        
+        Feed(seller: "NEW ARRIVALS", sellerDescription: "Jerseygramm and Brandings Store", time: "20-04-2020",status: true, logoImages: [
+                "firstJersey", "secondJersey", "lastJersey"])
     ]
     
     override func viewDidLoad() {
@@ -64,7 +69,8 @@ extension ViewController: CodeView{
         
         tableView.snp.makeConstraints {
             $0.top.equalTo(segmentedControl.snp.bottom).offset(10)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(15)
         }
     }
     
@@ -79,18 +85,19 @@ extension ViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let item = feed[indexPath.row]
-        print(item)
+        let item = feeds[indexPath.row]
         cell.sellerLabel.text = item.seller
         cell.sellerDescriptionLabel.text = item.sellerDescription
         cell.timeLabel.text = item.time
-        cell.imageView?.image = UIImage(named: "firstPhoto")
-        
+        cell.itemImage.image = UIImage(named: item.logoImages[0])
+        cell.itemSecondImage.image = UIImage(named:  item.logoImages[1])
+        cell.itemLastImage.image = UIImage(named:  item.logoImages[2])
+        if item.status { cell.changeCollor() }
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return feeds.count
     }
     
 }

@@ -9,9 +9,12 @@ import UIKit
 
 
 class FeedsCell: UITableViewCell {
+    
+    var status: Bool = false
+    
     lazy var sellerLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10, weight: .thin)
+        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -37,6 +40,21 @@ class FeedsCell: UITableViewCell {
     }()
     
     lazy var itemImage: UIImageView = {
+        let imgView = UIImageView()
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        imgView.contentMode = .scaleAspectFit
+        imgView.clipsToBounds = true
+        return imgView
+    }()
+    
+    lazy var itemSecondImage: UIImageView = {
+        let imgView = UIImageView()
+        imgView.translatesAutoresizingMaskIntoConstraints = false
+        imgView.contentMode = .scaleAspectFit
+        imgView.clipsToBounds = true
+        return imgView
+    }()
+    lazy var itemLastImage: UIImageView = {
         let imgView = UIImageView()
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.contentMode = .scaleAspectFit
@@ -74,6 +92,8 @@ extension FeedsCell: CodeView{
         addSubview(followLabel)
         addSubview(sellerDescriptionLabel)
         addSubview(itemImage)
+        addSubview(itemSecondImage)
+        addSubview(itemLastImage)
         addSubview(timeLabel)
         addSubview(shareButton)
     }
@@ -95,7 +115,21 @@ extension FeedsCell: CodeView{
         
         itemImage.snp.makeConstraints {
             $0.top.equalTo(sellerDescriptionLabel.snp.bottom).offset(8)
-            $0.leading.trailing.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.33)
+            $0.height.equalToSuperview().multipliedBy(0.7)
+        }
+        
+        itemSecondImage.snp.makeConstraints {
+            $0.top.equalTo(sellerDescriptionLabel.snp.bottom).offset(8)
+            $0.leading.equalTo(itemImage.snp.trailing)
+            $0.width.equalToSuperview().multipliedBy(0.33)
+            $0.height.equalToSuperview().multipliedBy(0.7)
+        }
+        
+        itemLastImage.snp.makeConstraints {
+            $0.top.equalTo(sellerDescriptionLabel.snp.bottom).offset(8)
+            $0.leading.equalTo(itemSecondImage.snp.trailing)
+            $0.width.equalToSuperview().multipliedBy(0.33)
             $0.height.equalToSuperview().multipliedBy(0.7)
         }
         
@@ -116,5 +150,9 @@ extension FeedsCell: CodeView{
         followLabel.backgroundColor = .orange
     }
     
+    func changeCollor(){
+        sellerLabel.backgroundColor = .green
+        followLabel.isHidden = true
+    }
     
 }
