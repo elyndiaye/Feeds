@@ -3,12 +3,11 @@ class TabBar: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = .clear
         UINavigationBar.appearance().backgroundColor = .black
         UINavigationBar.appearance().barTintColor = .black
         UINavigationBar.appearance().titleTextAttributes =  [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)]
         UITabBar.appearance().barTintColor = .systemBackground
-        tabBar.tintColor = .label
+        tabBar.tintColor = .orange
         setupVCs()
     }
     

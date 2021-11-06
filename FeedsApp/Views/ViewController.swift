@@ -14,10 +14,9 @@ class ViewController: UIViewController {
         segmentedControl.insertSegment(withTitle: "Following", at: 0, animated: false)
         segmentedControl.insertSegment(withTitle: "Explore", at: 1, animated: false)
         segmentedControl.selectedSegmentIndex = 0
-        //after
         segmentedControl.selectedSegmentTintColor = .orange
         segmentedControl.backgroundColor = .white
-        //segmentedControl.addTarget(self, action: #selector(didTapSegmentControl), for: .valueChanged)
+        segmentedControl.addTarget(self, action: #selector(didTapSegmentControl), for: .valueChanged)
         return segmentedControl
     }()
     
@@ -25,17 +24,14 @@ class ViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
-        //tableView.delegate = self
-        tableView.rowHeight = 320
+        tableView.delegate = self
         tableView.register(FeedsCell.self, forCellReuseIdentifier: String(describing: FeedsCell.self))
-        //tableView.backgroundView = activity
-        tableView.tableFooterView = UIView()
         return tableView
     }()
-
+    
     var feeds = [
         Feed(seller: "RECOMMENDED SELLER", sellerDescription: "Seller with a very long name that \nneeds two lines to fit", time: "32 minutes ago", status: false, logoImages: [
-             "firstPhoto", "secondPhoto", "lastPhoto"]),
+                "firstPhoto", "secondPhoto", "lastPhoto"]),
         
         Feed(seller: "RECOMMENDED SELLER", sellerDescription: "Seller short name", time: "20-04-2020", status: false, logoImages: [
                 "firstPhoto", "secondPhoto", "lastPhoto"]),
@@ -49,10 +45,10 @@ class ViewController: UIViewController {
         setupView()
         self.view.backgroundColor = .gray
     }
-
+    
 }
 
-extension ViewController: CodeView{
+extension ViewController: CodeView {
     func buildViewHierarchy() {
         view.addSubview(segmentedControl)
         view.addSubview(tableView)
@@ -63,19 +59,17 @@ extension ViewController: CodeView{
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
             $0.height.equalTo(40)
             $0.leading.trailing.equalToSuperview()
-            //$0.centerX.equalToSuperview()
-            // $0.width.equalTo(200)
         }
         
         tableView.snp.makeConstraints {
             $0.top.equalTo(segmentedControl.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(15)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).inset(15)
         }
     }
     
     func setupAdditionalConfiguration() {
-       
+        
     }
 }
 
@@ -99,5 +93,22 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feeds.count
     }
-    
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = feeds[indexPath.row]
+        
+        let alert = UIAlertController(title: "\(item.seller)", message:"The feed has been selected", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+}
+
+extension ViewController{
+    @objc func didTapSegmentControl(){
+        let alert = UIAlertController(title: "To be implemented", message: "Seguemented Changed", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
 }

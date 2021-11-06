@@ -10,11 +10,9 @@ import UIKit
 
 class FeedsCell: UITableViewCell {
     
-    var status: Bool = false
-    
     lazy var sellerLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -33,7 +31,7 @@ class FeedsCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.numberOfLines = 0
-        label.lineBreakMode = .byTruncatingTail // or .byWrappingWord
+        label.lineBreakMode = .byTruncatingTail
         label.minimumScaleFactor = 0.8
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -71,8 +69,7 @@ class FeedsCell: UITableViewCell {
     
     lazy var shareButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Share", for: .normal)
-        button.setTitleColor(.orange, for: .normal)
+        button.setImage(UIImage(named: "shared"), for: .normal)
         return button
     }()
     
@@ -115,26 +112,27 @@ extension FeedsCell: CodeView{
         
         itemImage.snp.makeConstraints {
             $0.top.equalTo(sellerDescriptionLabel.snp.bottom).offset(8)
-            $0.width.equalToSuperview().multipliedBy(0.33)
-            $0.height.equalToSuperview().multipliedBy(0.7)
+            $0.leading.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.35)
+            $0.height.equalTo(150)
         }
         
         itemSecondImage.snp.makeConstraints {
-            $0.top.equalTo(sellerDescriptionLabel.snp.bottom).offset(8)
+            $0.top.equalTo(itemImage.snp.top)
             $0.leading.equalTo(itemImage.snp.trailing)
-            $0.width.equalToSuperview().multipliedBy(0.33)
-            $0.height.equalToSuperview().multipliedBy(0.7)
+            $0.width.equalToSuperview().multipliedBy(0.35)
+            $0.height.equalTo(150)
         }
         
         itemLastImage.snp.makeConstraints {
-            $0.top.equalTo(sellerDescriptionLabel.snp.bottom).offset(8)
+            $0.top.equalTo(itemImage.snp.top)
             $0.leading.equalTo(itemSecondImage.snp.trailing)
-            $0.width.equalToSuperview().multipliedBy(0.33)
-            $0.height.equalToSuperview().multipliedBy(0.7)
+            $0.width.equalToSuperview().multipliedBy(0.35)
+            $0.height.equalTo(150)
         }
         
         timeLabel.snp.makeConstraints {
-            $0.top.equalTo(itemImage.snp.bottom).inset(15)
+            $0.top.equalTo(itemImage.snp.bottom).offset(15)
             $0.leading.equalTo(sellerDescriptionLabel.snp.leading)
         }
         
@@ -142,6 +140,9 @@ extension FeedsCell: CodeView{
             $0.top.equalTo(timeLabel.snp.top)
             $0.trailing.equalToSuperview().inset(15)
             $0.height.equalTo(15)
+            $0.width.equalTo(50)
+            $0.bottom.equalToSuperview().inset(15)
+
         }
     }
     
