@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = .gray
         tableView.register(FeedsCell.self, forCellReuseIdentifier: String(describing: FeedsCell.self))
         return tableView
     }()
@@ -62,7 +63,7 @@ extension ViewController: CodeView {
         }
         
         tableView.snp.makeConstraints {
-            $0.top.equalTo(segmentedControl.snp.bottom).offset(10)
+            $0.top.equalTo(segmentedControl.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).inset(15)
         }

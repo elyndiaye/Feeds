@@ -10,6 +10,12 @@ import UIKit
 
 class FeedsCell: UITableViewCell {
     
+    lazy var view: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     lazy var sellerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
@@ -85,19 +91,28 @@ class FeedsCell: UITableViewCell {
 
 extension FeedsCell: CodeView{
     func buildViewHierarchy() {
-        addSubview(sellerLabel)
-        addSubview(followLabel)
-        addSubview(sellerDescriptionLabel)
-        addSubview(itemImage)
-        addSubview(itemSecondImage)
-        addSubview(itemLastImage)
-        addSubview(timeLabel)
-        addSubview(shareButton)
+        addSubview(view)
+        view.addSubview(sellerLabel)
+        view.addSubview(followLabel)
+        view.addSubview(sellerDescriptionLabel)
+        view.addSubview(itemImage)
+        view.addSubview(itemSecondImage)
+        view.addSubview(itemLastImage)
+        view.addSubview(timeLabel)
+        view.addSubview(shareButton)
     }
     
     func setupConstraints() {
+        
+        view.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(25)
+            $0.leading.trailing.equalToSuperview().inset(10)
+            $0.bottom.equalToSuperview()
+        }
+        
         sellerLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().offset(15)
+            $0.top.equalToSuperview()
+                $0.leading.equalToSuperview().offset(15)
         }
         
         followLabel.snp.makeConstraints {
